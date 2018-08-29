@@ -21,6 +21,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if (myState == State.Solid) {
 			GoToSolid ();
 		}
+		Physics2D.IgnoreLayerCollision (9, 10); //Faz os objetos na layer PlayerNonSolid ignorarem colisão com os objetos na layer Drain
 	}
 		
 	void FixedUpdate () {
@@ -39,16 +40,19 @@ public class PlayerBehavior : MonoBehaviour {
 	public void GoToGas (){
 		myState = State.Gas;
 		rb.gravityScale = -0.5f;
+		gameObject.layer = 9; //Coloca a layer como PlayerNonSolid
 	}
 
 	public void GoToLiquid (){
 		myState = State.Liquid;
 		rb.gravityScale = 1;
+		gameObject.layer = 9; //Coloca a layer como PlayerNonSolid
 	}
 
 	public void GoToSolid (){
 		myState = State.Solid;
 		rb.gravityScale = 3;
+		gameObject.layer = 8; //Coloca a layer como PlayerSolid
 	}
 
 	public void Heat(){
