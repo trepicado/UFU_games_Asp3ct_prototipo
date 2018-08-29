@@ -21,11 +21,13 @@ public class PlayerBehavior : MonoBehaviour {
 		if (myState == State.Solid) {
 			GoToSolid ();
 		}
-		Physics2D.IgnoreLayerCollision (9, 10); //Faz os objetos na layer PlayerNonSolid ignorarem colisão com os objetos na layer Drain
+		Physics2D.IgnoreLayerCollision (9, 10);
+		Physics2D.IgnoreLayerCollision (11, 10);//Faz os objetos na layer PlayerNonSolid ignorarem colisão com os objetos na layer Drain
 	}
 		
 	void FixedUpdate () {
 		//Inputs de teste
+		print(Mathf.Sqrt ((Mathf.Pow (rb.velocity.x,2) + Mathf.Pow (rb.velocity.y,2))));
 		if (Input.GetKeyDown (KeyCode.Alpha1))
 			GoToGas ();
 		if (Input.GetKeyDown (KeyCode.Alpha2))
@@ -40,13 +42,14 @@ public class PlayerBehavior : MonoBehaviour {
 	public void GoToGas (){
 		myState = State.Gas;
 		rb.gravityScale = -0.5f;
-		gameObject.layer = 9; //Coloca a layer como PlayerNonSolid
+		rb.velocity = new Vector2 (0, 0);
+		gameObject.layer = 11; //Coloca a layer como PlayerGas
 	}
 
 	public void GoToLiquid (){
 		myState = State.Liquid;
 		rb.gravityScale = 1;
-		gameObject.layer = 9; //Coloca a layer como PlayerNonSolid
+		gameObject.layer = 9; //Coloca a layer como PlayerLiquid
 	}
 
 	public void GoToSolid (){
